@@ -1,16 +1,9 @@
-<<<<<<< HEAD
-from backend.models import User
+
+from backend.models import LearningPath
 from rest_framework import generics
 
-from .serializers import UserSerializer
+from .serializers import LearningPathSerializer
 
-class UserView(generics.ListCreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-=======
-from django.shortcuts import render
-
-from rest_framework import generics
-
-from .serializers import UserSerializer
-
+class LearningPathView(generics.ListCreateAPIView):
+    queryset = LearningPath.objects.all()
+    serializer_class = LearningPathSerializer

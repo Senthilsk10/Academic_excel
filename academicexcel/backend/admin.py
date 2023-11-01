@@ -3,9 +3,7 @@ from django.contrib import admin
 from django.contrib import admin
 from .models import User, LearningPath, Feedback, Lesson, UserLearningPath, Assessment, AssessmentData, Response
 
-@admin.register(User)
-class UserAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name')
+
 
 @admin.register(LearningPath)
 class LearningPathAdmin(admin.ModelAdmin):

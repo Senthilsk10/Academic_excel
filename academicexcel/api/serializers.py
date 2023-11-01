@@ -1,8 +1,10 @@
 from rest_framework import serializers
 
-from backend.models import User
+from backend.models import LearningPath
 
-class UserSerializer(serializers.ModelSerializer):
+
+
+class LearningPathSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ('id','name')
+        model = LearningPath
+        fields = "__all__"

@@ -1,26 +1,14 @@
+from django.contrib.auth.models import User
 from django.db import models
 
-
-from django.db import models
-
-class User(models.Model):
-    id = models.IntegerField(primary_key=True)
-    name = models.CharField(max_length=100)
 
 class LearningPath(models.Model):
     id = models.IntegerField(primary_key=True)
     path_name = models.CharField(max_length=100)
-    created_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_user = models.OneToOneField(User, on_delete=models.CASCADE)
     details = models.TextField()
     topics = models.TextField()
     followers = models.IntegerField()
-
-class Feedback(models.Model):
-    id = models.IntegerField(primary_key=True)
-    path = models.ForeignKey(LearningPath, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    feedback = models.TextField()
-    time = models.DateTimeField()
 
 class Lesson(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -32,27 +20,38 @@ class Lesson(models.Model):
     recommend_assessment = models.BooleanField()
     description = models.TextField()
 
+class Feedback(models.Model):
+    id = models.IntegerField(primary_key=True)
+    path = models.ForeignKey(LearningPath, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    feedback = models.TextField()
+    time = models.DateTimeField()
+
+
 class UserLearningPath(models.Model):
     id = models.IntegerField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     learning_path = models.ForeignKey(LearningPath, on_delete=models.CASCADE)
     assessment_completed = models.CharField(max_length=10)
     progress = models.CharField(max_length=10)
 
+
 class Assessment(models.Model):
     id = models.IntegerField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     learning_path = models.ForeignKey(LearningPath, on_delete=models.CASCADE)
     assessment_data_id = models.IntegerField()
     source = models.URLField()
     timestamp = models.DateTimeField()
 
+
 class AssessmentData(models.Model):
     id = models.IntegerField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     assessment_type = models.CharField(max_length=100)
     question_with_answer = models.TextField()
     response_id = models.IntegerField()
+
 
 class Response(models.Model):
     id = models.IntegerField(primary_key=True)
